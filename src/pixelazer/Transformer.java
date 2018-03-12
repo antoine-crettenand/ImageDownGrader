@@ -6,20 +6,35 @@ import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
 
+import java.util.function.Function;
+
 public class Transformer {
 
-
-	public static Image toGreyscale(Image image_in){
+	public static Image paint(Image image_in, Function<Color, Color> painter){
 		PixelReader preader = image_in.getPixelReader();
 		WritableImage wimage = new WritableImage((int) image_in.getWidth(), (int) image_in.getHeight());
 		PixelWriter pwriter = wimage.getPixelWriter();
-		for (int i = 0; i < (int) image_in.getHeight(); i++) {
-			for (int j = 0; j < (int) image_in.getWidth(); j++) {
+		for (int i = 0; i < wimage.getHeight(); i++) {
+			for (int j = 0; j < wimage.getWidth(); j++) {
 				Color col = preader.getColor(j, i);
-				//Reading each pixel and converting it into gray scale
-				pwriter.setColor(j, i, new Color((col.getRed() * 0.3 + col.getGreen() * 0.59 + col.getBlue() * 0.11), (col.getRed() * 0.3 + col.getGreen() * 0.59 + col.getBlue() * 0.11), (col.getRed() * 0.3 + col.getGreen() * 0.59 + col.getBlue() * 0.11), 1.0));
+				pwriter.setColor(j, i, painter.apply(col));
 			}
 		}
+
 		return wimage;
 	}
+
+	public static Image grayscale(Image image_in){
+		return paint(image_in, Color::grayscale);
+	}
+
+	public static Image brighter(Image image_in){
+		return paint(image_in, Color::brighter);
+	}
+
+	public static Image darker(Image image_in){
+		return paint(image_in, Color::darker);
+	}
+
+
 }

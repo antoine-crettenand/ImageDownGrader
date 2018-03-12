@@ -1,5 +1,5 @@
 package gui;
 
 public enum Events {
-	loadFile, saveFile, applyBinary
+	loadFile, saveFile, applyGrayscale, applyBrighter, applyDarker
 }

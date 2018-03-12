@@ -40,8 +40,12 @@ public class View {
 
 		Menu menuEdit = new Menu("Edit");
 		MenuItem menuEdit_applyGreyscale = new MenuItem("Greyscale");
-		menuEdit_applyGreyscale.setOnAction(controler.getHandler(applyBinary));
-		menuEdit.getItems().add(menuEdit_applyGreyscale);
+		menuEdit_applyGreyscale.setOnAction(controler.getHandler(applyGrayscale));
+		MenuItem menuEdit_applyBrighter = new MenuItem("Brighter");
+		menuEdit_applyBrighter.setOnAction(controler.getHandler(applyBrighter));
+		MenuItem menuEdit_applyDarker = new MenuItem("Darker");
+		menuEdit_applyDarker.setOnAction(controler.getHandler(applyDarker));
+		menuEdit.getItems().addAll(menuEdit_applyGreyscale, menuEdit_applyBrighter, menuEdit_applyDarker);
 
 		Menu menuView = new Menu("View");
 		menuBar.getMenus().addAll(menuFile, menuEdit, menuView);
