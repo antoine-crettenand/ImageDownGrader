@@ -29,7 +29,6 @@ public class RootScene {
 
 		MenuBar menuBar = new MenuBar();
 
-
 		Menu menuFile = new Menu("File");
 		MenuItem newFile = new MenuItem("New");
 		newFile.setOnAction(eventController.getHandler(Events.loadFile));
@@ -37,12 +36,10 @@ public class RootScene {
 		saveFile.setOnAction(eventController.getHandler(Events.saveFile));
 		menuFile.getItems().addAll(newFile, saveFile);
 
-
 		Menu menuEdit = new Menu("Edit");
 		MenuItem applyBinary = new MenuItem("Grayscale");
 		applyBinary.setOnAction(eventController.getHandler(Events.applyBinary));
 		menuEdit.getItems().add(applyBinary);
-
 
 		Menu menuView = new Menu("View");
 		menuBar.getMenus().addAll(menuFile, menuEdit, menuView);

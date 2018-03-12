@@ -3,9 +3,9 @@ package gui;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.effect.ColorAdjust;
-import javafx.scene.image.ImageView;
+import javafx.scene.image.Image;
 import javafx.stage.FileChooser;
+import pixelazer.Transformer;
 
 import javax.imageio.ImageIO;
 import java.io.File;
@@ -18,11 +18,14 @@ public class EventController {
 		this.imageRenderer = imageRenderer;
 	}
 
-	public EventHandler<ActionEvent> getHandler(Events eventType){
-		switch(eventType){
-		case loadFile: return loadFile;
-		case saveFile: return saveFile;
-		case applyBinary: return applyBinaryEffect;
+	public EventHandler<ActionEvent> getHandler(Events eventType) {
+		switch (eventType) {
+		case loadFile:
+			return loadFile;
+		case saveFile:
+			return saveFile;
+		case applyBinary:
+			return applyBinaryEffect;
 		}
 		return null;
 	}
@@ -41,7 +44,6 @@ public class EventController {
 	};
 
 	private javafx.event.EventHandler<ActionEvent> saveFile = new EventHandler<ActionEvent>() {
-
 		@Override public void handle(ActionEvent event) {
 			FileChooser fileChooser = new FileChooser();
 			fileChooser.setTitle("Save Image");
@@ -59,12 +61,9 @@ public class EventController {
 	};
 
 	private javafx.event.EventHandler<ActionEvent> applyBinaryEffect = new EventHandler<ActionEvent>() {
-
 		@Override public void handle(ActionEvent event) {
-			ImageView image_in = imageRenderer.getDisplayedImg();
-			ColorAdjust desaturate = new ColorAdjust();
-			desaturate.setSaturation(-1);
-			image_in.setEffect(desaturate);
+			Image image_in = imageRenderer.getDisplayedImg().getImage();
+			imageRenderer.setDisplayedImg(Transformer.toGreyscale(image_in));
 		}
 	};
 
