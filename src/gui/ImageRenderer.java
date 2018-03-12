@@ -1,7 +1,13 @@
 package gui;
 
+import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class ImageRenderer {
 
@@ -19,5 +25,16 @@ public class ImageRenderer {
 
 	public void setDisplayedImg(Image img) {
 		displayedImg.setImage(img);
+	}
+
+	public void setDisplayedImg(File file) {
+		try {
+			BufferedImage bufferedImage = ImageIO.read(file);
+			Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+			displayedImg.setImage(image);
+
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		}
 	}
 }
