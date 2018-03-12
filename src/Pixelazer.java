@@ -1,6 +1,8 @@
+import gui.Controler;
+import gui.View;
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 public class Pixelazer extends Application {
@@ -9,11 +11,11 @@ public class Pixelazer extends Application {
 		Application.launch(args);
 	}
 
-	@Override public void start(Stage primaryStage) throws Exception {
+	@Override public void start(Stage primaryStage) {
 
-		BorderPane root = new gui.RootScene().getRoot();
+		Pane root = new View(new Controler()).getRoot();
 
-		Scene scene = new Scene(root, 800, 850);
+		Scene scene = new Scene(root);
 		primaryStage.setTitle("Pixelazer");
 		primaryStage.setScene(scene);
 		primaryStage.show();

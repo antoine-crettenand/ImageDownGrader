@@ -4,6 +4,7 @@ import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import pixelazer.Transformer;
 
@@ -11,11 +12,17 @@ import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
 
-public class EventController {
-	private ImageRenderer imageRenderer;
+public class Controler {
+	private ImageView imageView;
+	private final static String DEFAULT_IMG =
+			"http://mikecann.co.uk/wp-content/uploads/2009/12/javafx_logo_color_1.jpg";
 
-	public EventController(ImageRenderer imageRenderer) {
-		this.imageRenderer = imageRenderer;
+	public Controler() {
+		imageView = new ImageView(DEFAULT_IMG);
+	}
+
+	public ImageView getImageView(){
+		return imageView;
 	}
 
 	public EventHandler<ActionEvent> getHandler(Events eventType) {
@@ -40,7 +47,13 @@ public class EventController {
 
 		//Show open file dialog
 		File file = fileChooser.showOpenDialog(null);
-		imageRenderer.setDisplayedImg(file);
+		Image img_in = null;
+		try {
+			img_in = SwingFXUtils.toFXImage(ImageIO.read(file), null);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		imageView.setImage(img_in);
 	};
 
 	private javafx.event.EventHandler<ActionEvent> saveFile = new EventHandler<ActionEvent>() {
@@ -51,7 +64,7 @@ public class EventController {
 			File file = fileChooser.showSaveDialog(null);
 			if (file != null) {
 				try {
-					ImageIO.write(SwingFXUtils.fromFXImage(imageRenderer.getDisplayedImg().getImage(), null), "png",
+					ImageIO.write(SwingFXUtils.fromFXImage(imageView.getImage(), null), "png",
 							file);
 				} catch (IOException ex) {
 					ex.printStackTrace();
@@ -62,8 +75,8 @@ public class EventController {
 
 	private javafx.event.EventHandler<ActionEvent> applyBinaryEffect = new EventHandler<ActionEvent>() {
 		@Override public void handle(ActionEvent event) {
-			Image image_in = imageRenderer.getDisplayedImg().getImage();
-			imageRenderer.setDisplayedImg(Transformer.toGreyscale(image_in));
+			Image image_in = imageView.getImage();
+			imageView.setImage(Transformer.toGreyscale(image_in));
 		}
 	};
 
