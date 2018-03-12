@@ -5,8 +5,10 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 
-
-public class MyPanel extends JPanel  {
+/**
+ * Store current displayed image
+ */
+public class MyPanel extends JPanel {
 
 	private BufferedImage current_img = null;
 
@@ -14,13 +16,11 @@ public class MyPanel extends JPanel  {
 		super();
 	}
 
-	protected void paintComponent(Graphics g)
-	{
+	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		if(current_img != null)
+		if (current_img != null)
 			g.drawImage(current_img, 0, 0, null);
 	}
-
 
 	protected void reduireImage() {
 		current_img = new Transformer(current_img).reduireImage();
@@ -33,7 +33,7 @@ public class MyPanel extends JPanel  {
 	}
 
 	protected void imageConvolue() {
-	//on va utiliser le masque flou
+		//on va utiliser le masque flou
 		current_img = new Transformer(current_img).imageConvolue();
 		repaint();
 	}
@@ -48,26 +48,22 @@ public class MyPanel extends JPanel  {
 		repaint();
 	}
 
-	protected void imageBinaire()
-	{   
+	protected void imageBinaire() {
 		current_img = new Transformer(current_img).imageBinaire();
 		repaint();
 	}
 
-	protected void imageEnNiveauGris()
-	{
+	protected void imageEnNiveauGris() {
 		current_img = new Transformer(current_img).imageEnNiveauGris();
-		repaint(); 
+		repaint();
 	}
 
-	protected void loadImage(File imgFile)
-	{
+	protected void loadImage(File imgFile) {
 		current_img = IO_Process.readFile(imgFile);
 		repaint();
 	}
 
-	protected void saveImage(File imgFile)
-	{
+	protected void saveImage(File imgFile) {
 		IO_Process.writeFile(imgFile, current_img);
 
 	}

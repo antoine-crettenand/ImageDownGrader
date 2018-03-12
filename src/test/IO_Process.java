@@ -18,7 +18,7 @@ public class IO_Process {
 		return img;
 	}
 
-	public static void writeFile(File file, BufferedImage img){
+	public static void writeFile(File file, BufferedImage img) {
 		try {
 			// retrieve image
 			File outputfile = new File(file.getName());
