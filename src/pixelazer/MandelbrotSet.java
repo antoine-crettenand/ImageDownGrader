@@ -35,11 +35,6 @@ public final class MandelbrotSet {
 	/**
 	 * Using Linear Interpolation
 	 *
-	 * @param xa
-	 * @param xb
-	 * @param ya
-	 * @param yb
-	 * @param v
 	 * @return
 	 */
 	private static float map(float xa, float xb, float ya, float yb, float v) {
