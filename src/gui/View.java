@@ -9,10 +9,10 @@ import javafx.scene.layout.Pane;
 
 import static gui.Events.*;
 
-public class View {
-	private MenuBar top;
-	private ScrollPane center;
-	private Controler controler;
+public final class View {
+	private final MenuBar top;
+	private final ScrollPane center;
+	private final Controler controler;
 
 	public Pane getRoot() {
 		BorderPane root = new BorderPane();

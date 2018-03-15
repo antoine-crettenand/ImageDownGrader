@@ -16,25 +16,25 @@ public final class MandelbrotSet {
 		return maxIterations;
 	}
 
-	public static int mand(float x, float y, int maxIterations) {
+	private static int mand(float x, float y, int maxIterations) {
 		return mand(new Complex(x, y), maxIterations);
 	}
 
 	public static BiFunction<Integer, Integer, Color> mandelbrotPainter(int maxIterations, int maxX, int maxY) {
 		return (x, y) -> {
-
 			//x from (0 to maxX) to (-2, 2)		y from (0 to maxY) to (-1, 1)
 			float i = map(0, maxX, -2, 2, x);
 			float j = map(0, maxY, -1, 1, y);
-	//		System.out.println("(" + x + ", " + y +") -> (" + i + ", " + j + ")");
+			//		System.out.println("(" + x + ", " + y +") -> (" + i + ", " + j + ")");
 			float gray = mand(i, j, maxIterations) / maxIterations;
-	//		System.out.println(gray);
+			//		System.out.println(gray);
 			return new Color(gray, gray, gray, 1);
 		};
 	}
 
 	/**
 	 * Using Linear Interpolation
+	 *
 	 * @param xa
 	 * @param xb
 	 * @param ya
@@ -48,11 +48,11 @@ public final class MandelbrotSet {
 
 }
 
-class Complex {
-	private double re;
-	private double im;
+final class Complex {
+	private final double re;
+	private final double im;
 
-	public Complex(double re, double im) {
+	Complex(double re, double im) {
 		this.re = re;
 		this.im = im;
 	}

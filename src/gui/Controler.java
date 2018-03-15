@@ -13,13 +13,11 @@ import java.io.File;
 import java.io.IOException;
 import java.util.NoSuchElementException;
 
-public class Controler {
-	private ImageView imageView;
+public final class Controler {
+	private final ImageView imageView = new ImageView(DEFAULT_IMG);
 	private final static String DEFAULT_IMG = "http://mikecann.co.uk/wp-content/uploads/2009/12/javafx_logo_color_1.jpg";
 
-	public Controler() {
-		imageView = new ImageView(DEFAULT_IMG);
-	}
+	public Controler() {}
 
 	public ImageView getImageView() {
 		return imageView;
@@ -78,36 +76,28 @@ public class Controler {
 		}
 	};
 
-	private EventHandler<ActionEvent> applyGrayscale = new EventHandler<ActionEvent>() {
-		@Override public void handle(ActionEvent event) {
-			Image image_in = imageView.getImage();
-			Image image_out = Transformer.grayscale(image_in);
-			imageView.setImage(image_out);
-		}
+	private EventHandler<ActionEvent> applyGrayscale = event -> {
+		Image image_in = imageView.getImage();
+		Image image_out = Transformer.grayscale(image_in);
+		imageView.setImage(image_out);
 	};
 
-	private EventHandler<ActionEvent> applyBrighter = new EventHandler<ActionEvent>() {
-		@Override public void handle(ActionEvent event) {
-			Image image_in = imageView.getImage();
-			Image image_out = Transformer.brighter(image_in);
-			imageView.setImage(image_out);
-		}
+	private EventHandler<ActionEvent> applyBrighter = event -> {
+		Image image_in = imageView.getImage();
+		Image image_out = Transformer.brighter(image_in);
+		imageView.setImage(image_out);
 	};
 
-	private EventHandler<ActionEvent> applyDarker = new EventHandler<ActionEvent>() {
-		@Override public void handle(ActionEvent event) {
-			Image image_in = imageView.getImage();
-			Image image_out = Transformer.darker(image_in);
-			imageView.setImage(image_out);
-		}
+	private EventHandler<ActionEvent> applyDarker = event -> {
+		Image image_in = imageView.getImage();
+		Image image_out = Transformer.darker(image_in);
+		imageView.setImage(image_out);
 	};
 
-	private EventHandler<ActionEvent> drawMandelbrotSet = new EventHandler<ActionEvent>() {
-		@Override public void handle(ActionEvent event) {
-			Image image_in = imageView.getImage();
-			Image image_out = Transformer.drawMandelbrot(image_in);
-			imageView.setImage(image_out);
-		}
+	private EventHandler<ActionEvent> drawMandelbrotSet = event -> {
+		Image image_in = imageView.getImage();
+		Image image_out = Transformer.drawMandelbrot(image_in);
+		imageView.setImage(image_out);
 	};
 
 }
