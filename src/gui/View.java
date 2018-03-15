@@ -48,6 +48,11 @@ public class View {
 		menuEdit.getItems().addAll(menuEdit_applyGreyscale, menuEdit_applyBrighter, menuEdit_applyDarker);
 
 		Menu menuView = new Menu("View");
+		MenuItem menduView_drawMandelbrotSet = new MenuItem("MandelBrot Set");
+		menduView_drawMandelbrotSet.setOnAction(controler.getHandler(drawMandelBrot));
+		menuView.getItems().addAll(menduView_drawMandelbrotSet);
+
+
 		menuBar.getMenus().addAll(menuFile, menuEdit, menuView);
 		return menuBar;
 	}

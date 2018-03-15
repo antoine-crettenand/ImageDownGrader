@@ -6,11 +6,18 @@ import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
 
+import java.util.function.BiFunction;
 import java.util.function.Function;
 
 public class Transformer {
 
-	public static Image paint(Image image_in, Function<Color, Color> painter){
+	/**
+	 * Repaint depends on current Color
+	 * @param image_in
+	 * @param painter
+	 * @return
+	 */
+	public static Image rePaint(Image image_in, Function<Color, Color> painter){
 		PixelReader preader = image_in.getPixelReader();
 		WritableImage wimage = new WritableImage((int) image_in.getWidth(), (int) image_in.getHeight());
 		PixelWriter pwriter = wimage.getPixelWriter();
@@ -24,16 +31,38 @@ public class Transformer {
 		return wimage;
 	}
 
+	/**
+	 * Paint doesn't depends on current color, draw as on white canvas
+	 * @param image_in
+	 * @param painter
+	 * @return
+	 */
+	public static Image paint(Image image_in, BiFunction<Integer, Integer, Color> painter){
+		WritableImage wimage = new WritableImage((int) image_in.getWidth(), (int) image_in.getHeight());
+		PixelWriter pwriter = wimage.getPixelWriter();
+		for (int i = 0; i < wimage.getHeight(); i++) {
+			for (int j = 0; j < wimage.getWidth(); j++) {
+				pwriter.setColor(j, i, painter.apply(i, j));
+			}
+		}
+
+		return wimage;
+	}
+
 	public static Image grayscale(Image image_in){
-		return paint(image_in, Color::grayscale);
+		return rePaint(image_in, Color::grayscale);
 	}
 
 	public static Image brighter(Image image_in){
-		return paint(image_in, Color::brighter);
+		return rePaint(image_in, Color::brighter);
 	}
 
 	public static Image darker(Image image_in){
-		return paint(image_in, Color::darker);
+		return rePaint(image_in, Color::darker);
+	}
+
+	public static Image drawMandelbrot(Image image_in){
+		return paint(image_in, MandelbrotSet.mandelbrotPainter(255));
 	}
 
 
