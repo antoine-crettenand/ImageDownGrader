@@ -42,7 +42,7 @@ public class Transformer {
 		PixelWriter pwriter = wimage.getPixelWriter();
 		for (int i = 0; i < wimage.getHeight(); i++) {
 			for (int j = 0; j < wimage.getWidth(); j++) {
-				pwriter.setColor(j, i, painter.apply(i, j));
+				pwriter.setColor(j, i, painter.apply(j, i));
 			}
 		}
 
@@ -62,7 +62,8 @@ public class Transformer {
 	}
 
 	public static Image drawMandelbrot(Image image_in){
-		return paint(image_in, MandelbrotSet.mandelbrotPainter(255));
+		return paint(image_in, MandelbrotSet.mandelbrotPainter(255, ((int) image_in.getWidth()),
+				((int) image_in.getHeight())));
 	}
 
 
