@@ -13,11 +13,12 @@ public class Transformer {
 
 	/**
 	 * Repaint depends on current Color
+	 *
 	 * @param image_in
 	 * @param painter
 	 * @return
 	 */
-	public static Image rePaint(Image image_in, Function<Color, Color> painter){
+	public static Image rePaint(Image image_in, Function<Color, Color> painter) {
 		PixelReader preader = image_in.getPixelReader();
 		WritableImage wimage = new WritableImage((int) image_in.getWidth(), (int) image_in.getHeight());
 		PixelWriter pwriter = wimage.getPixelWriter();
@@ -33,11 +34,12 @@ public class Transformer {
 
 	/**
 	 * Paint doesn't depends on current color, draw as on white canvas
+	 *
 	 * @param image_in
 	 * @param painter
 	 * @return
 	 */
-	public static Image paint(Image image_in, BiFunction<Integer, Integer, Color> painter){
+	private static Image paint(Image image_in, BiFunction<Integer, Integer, Color> painter) {
 		WritableImage wimage = new WritableImage((int) image_in.getWidth(), (int) image_in.getHeight());
 		PixelWriter pwriter = wimage.getPixelWriter();
 		for (int i = 0; i < wimage.getHeight(); i++) {
@@ -49,22 +51,35 @@ public class Transformer {
 		return wimage;
 	}
 
-	public static Image grayscale(Image image_in){
+	public static Image grayscale(Image image_in) {
 		return rePaint(image_in, Color::grayscale);
 	}
 
-	public static Image brighter(Image image_in){
+	public static Image brighter(Image image_in) {
 		return rePaint(image_in, Color::brighter);
 	}
 
-	public static Image darker(Image image_in){
+	public static Image darker(Image image_in) {
 		return rePaint(image_in, Color::darker);
 	}
 
-	public static Image drawMandelbrot(Image image_in){
-		return paint(image_in, MandelbrotSet.mandelbrotPainter(255, ((int) image_in.getWidth()),
-				((int) image_in.getHeight())));
+	public static Image invert(Image image_in) {
+		return rePaint(image_in, Color::invert);
 	}
 
+	public static Image drawMandelbrot(Image image_in) {
+		return paint(image_in,
+				MandelbrotSet.mandelbrotPainter(500, ((int) image_in.getWidth()), ((int) image_in.getHeight())));
+	}
+
+	public static Image drawCircle(Image image_in, int x, int y) {
+		PixelReader pixelReader = image_in.getPixelReader();
+		WritableImage wi = new WritableImage(pixelReader, (int) image_in.getWidth(), (int) image_in.getHeight());
+		PixelWriter pixelWriter = wi.getPixelWriter();
+
+		pixelWriter.setPixels(x, y, 50, 50, pixelReader, x, y);
+
+		return wi;
+	}
 
 }

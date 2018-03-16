@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.util.NoSuchElementException;
 
 public final class Controler {
-	private final ImageView imageView = new ImageView(DEFAULT_IMG);
+	private ImageView imageView = new ImageView(DEFAULT_IMG);
 	private final static String DEFAULT_IMG = "http://mikecann.co.uk/wp-content/uploads/2009/12/javafx_logo_color_1.jpg";
 
 	public Controler() {}
@@ -37,6 +37,8 @@ public final class Controler {
 			return applyDarker;
 		case drawMandelBrot:
 			return drawMandelbrotSet;
+		case applyInvert:
+			return applyInvert;
 		}
 		throw new NoSuchElementException("Such eventType " + eventType + " not found");
 	}
@@ -58,23 +60,29 @@ public final class Controler {
 			e.printStackTrace();
 		}
 		imageView.setImage(img_in);
+
 	};
 
-	private EventHandler<ActionEvent> saveFile = new EventHandler<ActionEvent>() {
-		@Override public void handle(ActionEvent event) {
-			FileChooser fileChooser = new FileChooser();
-			fileChooser.setTitle("Save Image");
+	private EventHandler<ActionEvent> saveFile = event -> {
+		FileChooser fileChooser = new FileChooser();
+		fileChooser.setTitle("Save Image");
 
-			File file = fileChooser.showSaveDialog(null);
-			if (file != null) {
-				try {
-					ImageIO.write(SwingFXUtils.fromFXImage(imageView.getImage(), null), "png", file);
-				} catch (IOException ex) {
-					ex.printStackTrace();
-				}
+		File file = fileChooser.showSaveDialog(null);
+		if (file != null) {
+			try {
+				ImageIO.write(SwingFXUtils.fromFXImage(imageView.getImage(), null), "png", file);
+			} catch (IOException ex) {
+				ex.printStackTrace();
 			}
 		}
 	};
+
+	/*
+	private EventHandler<javafx.scene.input.MouseEvent> drawCircle = event -> {
+		Image image_in = imageView.getImage();
+		Image image_out = Transformer.drawCircle(image_in, int x, int y);
+		imageView.setImage(image_out);
+	};*/
 
 	private EventHandler<ActionEvent> applyGrayscale = event -> {
 		Image image_in = imageView.getImage();
@@ -97,6 +105,13 @@ public final class Controler {
 	private EventHandler<ActionEvent> drawMandelbrotSet = event -> {
 		Image image_in = imageView.getImage();
 		Image image_out = Transformer.drawMandelbrot(image_in);
+		imageView.setImage(image_out);
+		imageView.preserveRatioProperty().setValue(true);
+	};
+
+	private EventHandler<ActionEvent> applyInvert = event -> {
+		Image image_in = imageView.getImage();
+		Image image_out = Transformer.invert(image_in);
 		imageView.setImage(image_out);
 	};
 

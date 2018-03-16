@@ -25,9 +25,7 @@ public final class MandelbrotSet {
 			//x from (0 to maxX) to (-2, 2)		y from (0 to maxY) to (-1, 1)
 			float i = map(0, maxX, -2, 2, x);
 			float j = map(0, maxY, -1, 1, y);
-			//		System.out.println("(" + x + ", " + y +") -> (" + i + ", " + j + ")");
 			float gray = mand(i, j, maxIterations) / maxIterations;
-			//		System.out.println(gray);
 			return new Color(gray, gray, gray, 1);
 		};
 	}
@@ -40,7 +38,6 @@ public final class MandelbrotSet {
 	private static float map(float xa, float xb, float ya, float yb, float v) {
 		return (ya - yb) / (xa - xb) * v + (xa * yb - xb * ya) / (xa - xb);
 	}
-
 }
 
 final class Complex {

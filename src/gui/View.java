@@ -45,7 +45,10 @@ public final class View {
 		menuEdit_applyBrighter.setOnAction(controler.getHandler(applyBrighter));
 		MenuItem menuEdit_applyDarker = new MenuItem("Darker");
 		menuEdit_applyDarker.setOnAction(controler.getHandler(applyDarker));
-		menuEdit.getItems().addAll(menuEdit_applyGreyscale, menuEdit_applyBrighter, menuEdit_applyDarker);
+		MenuItem menuEdit_applyInvert = new MenuItem("Invert");
+		menuEdit_applyInvert.setOnAction(controler.getHandler(applyInvert));
+
+		menuEdit.getItems().addAll(menuEdit_applyGreyscale, menuEdit_applyBrighter, menuEdit_applyDarker, menuEdit_applyInvert);
 
 		Menu menuView = new Menu("View");
 		MenuItem menduView_drawMandelbrotSet = new MenuItem("MandelBrot Set");
