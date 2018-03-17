@@ -32,8 +32,6 @@ public final class MandelbrotSet {
 
 	/**
 	 * Using Linear Interpolation
-	 *
-	 * @return
 	 */
 	private static float map(float xa, float xb, float ya, float yb, float v) {
 		return (ya - yb) / (xa - xb) * v + (xa * yb - xb * ya) / (xa - xb);

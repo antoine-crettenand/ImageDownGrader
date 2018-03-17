@@ -7,7 +7,8 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 
-import static gui.Events.*;
+import static gui.Event.*;
+import static gui.IOEvent.*;
 
 public final class View {
 	private final MenuBar top;
@@ -33,26 +34,26 @@ public final class View {
 
 		Menu menuFile = new Menu("File");
 		MenuItem menuFile_newFile = new MenuItem("New");
-		menuFile_newFile.setOnAction(controler.getHandler(loadFile));
+		menuFile_newFile.setOnAction(controler.handle(loadFile));
 		MenuItem menuFile_saveFile = new MenuItem("Save As");
-		menuFile_saveFile.setOnAction(controler.getHandler(saveFile));
+		menuFile_saveFile.setOnAction(controler.handle(saveFile));
 		menuFile.getItems().addAll(menuFile_newFile, menuFile_saveFile);
 
 		Menu menuEdit = new Menu("Edit");
 		MenuItem menuEdit_applyGreyscale = new MenuItem("Greyscale");
-		menuEdit_applyGreyscale.setOnAction(controler.getHandler(applyGrayscale));
+		menuEdit_applyGreyscale.setOnAction(controler.handle(applyGrayscale));
 		MenuItem menuEdit_applyBrighter = new MenuItem("Brighter");
-		menuEdit_applyBrighter.setOnAction(controler.getHandler(applyBrighter));
+		menuEdit_applyBrighter.setOnAction(controler.handle(applyBrighter));
 		MenuItem menuEdit_applyDarker = new MenuItem("Darker");
-		menuEdit_applyDarker.setOnAction(controler.getHandler(applyDarker));
+		menuEdit_applyDarker.setOnAction(controler.handle(applyDarker));
 		MenuItem menuEdit_applyInvert = new MenuItem("Invert");
-		menuEdit_applyInvert.setOnAction(controler.getHandler(applyInvert));
+		menuEdit_applyInvert.setOnAction(controler.handle(applyInvert));
 
 		menuEdit.getItems().addAll(menuEdit_applyGreyscale, menuEdit_applyBrighter, menuEdit_applyDarker, menuEdit_applyInvert);
 
 		Menu menuView = new Menu("View");
 		MenuItem menduView_drawMandelbrotSet = new MenuItem("MandelBrot Set");
-		menduView_drawMandelbrotSet.setOnAction(controler.getHandler(drawMandelBrot));
+		menduView_drawMandelbrotSet.setOnAction(controler.handle(drawMandelBrot));
 		menuView.getItems().addAll(menduView_drawMandelbrotSet);
 
 

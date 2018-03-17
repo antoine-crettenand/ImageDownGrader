@@ -20,15 +20,12 @@ public final class Controler {
 	public Controler() {}
 
 	public ImageView getImageView() {
+		imageView.setPreserveRatio(true);
 		return imageView;
 	}
 
-	public EventHandler<ActionEvent> getHandler(Events eventType) {
+	public EventHandler<ActionEvent> handle(Event eventType) {
 		switch (eventType) {
-		case loadFile:
-			return loadFile;
-		case saveFile:
-			return saveFile;
 		case applyGrayscale:
 			return applyGrayscale;
 		case applyBrighter:
@@ -41,6 +38,16 @@ public final class Controler {
 			return applyInvert;
 		}
 		throw new NoSuchElementException("Such eventType " + eventType + " not found");
+	}
+
+	public EventHandler<ActionEvent> handle(IOEvent ioEvent){
+		switch (ioEvent) {
+		case loadFile:
+			return loadFile;
+		case saveFile:
+			return saveFile;
+		}
+		throw new NoSuchElementException("Such eventType " + ioEvent + " not found");
 	}
 
 	private EventHandler<ActionEvent> loadFile = event -> {
@@ -60,7 +67,8 @@ public final class Controler {
 			e.printStackTrace();
 		}
 		imageView.setImage(img_in);
-
+		imageView.setFitHeight(img_in.getHeight());
+		imageView.setFitWidth(img_in.getWidth());
 	};
 
 	private EventHandler<ActionEvent> saveFile = event -> {
