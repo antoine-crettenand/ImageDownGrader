@@ -5,7 +5,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-public class Pixelazer extends Application {
+public final class Pixelazer extends Application {
 
 	public static void main(String[] args) {
 		Application.launch(args);

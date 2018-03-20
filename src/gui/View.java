@@ -10,22 +10,25 @@ import javafx.scene.layout.Pane;
 import static gui.Event.*;
 import static gui.IOEvent.*;
 
+/**
+ * Class represents the visual interface for the user
+ */
 public final class View {
-	private final MenuBar top;
-	private final ScrollPane center;
+	private final MenuBar menuBar;
+	private final ScrollPane image;
 	private final Controler controler;
 
 	public Pane getRoot() {
 		BorderPane root = new BorderPane();
-		root.setTop(top);
-		root.setCenter(center);
+		root.setTop(menuBar);
+		root.setCenter(image);
 		return root;
 	}
 
 	public View(Controler controler) {
 		this.controler = controler;
-		top = setUpMenuBar();
-		center = setUpImage();
+		menuBar = setUpMenuBar();
+		image = setUpImage();
 	}
 
 	private MenuBar setUpMenuBar() {
@@ -52,10 +55,15 @@ public final class View {
 		menuEdit.getItems().addAll(menuEdit_applyGreyscale, menuEdit_applyBrighter, menuEdit_applyDarker, menuEdit_applyInvert);
 
 		Menu menuView = new Menu("View");
-		MenuItem menduView_drawMandelbrotSet = new MenuItem("MandelBrot Set");
-		menduView_drawMandelbrotSet.setOnAction(controler.handle(drawMandelBrot));
-		menuView.getItems().addAll(menduView_drawMandelbrotSet);
 
+		MenuItem menuView_bigger = new MenuItem("Bigger");
+		menuView_bigger.setOnAction(controler.handle(bigger));
+		MenuItem menuView_smaller = new MenuItem("Smaller");
+		menuView_smaller.setOnAction(controler.handle(smaller));
+
+		MenuItem menuView_drawMandelbrotSet = new MenuItem("MandelBrot Set");
+		menuView_drawMandelbrotSet.setOnAction(controler.handle(drawMandelBrot));
+		menuView.getItems().addAll(menuView_drawMandelbrotSet, menuView_bigger, menuView_smaller);
 
 		menuBar.getMenus().addAll(menuFile, menuEdit, menuView);
 		return menuBar;

@@ -1,7 +1,6 @@
 package pixelazer;
 
 import javafx.scene.paint.Color;
-
 import java.util.function.BiFunction;
 
 public final class MandelbrotSet {
@@ -11,7 +10,7 @@ public final class MandelbrotSet {
 		for (int i = 0; i < maxIterations; i++) {
 			if (z.abs() > 2.0)
 				return i;
-			z = z.multiply(z).plus(z0);
+			z = z.multiply(z).add(z0);
 		}
 		return maxIterations;
 	}
@@ -20,12 +19,12 @@ public final class MandelbrotSet {
 		return mand(new Complex(x, y), maxIterations);
 	}
 
-	public static BiFunction<Integer, Integer, Color> mandelbrotPainter(int maxIterations, int maxX, int maxY) {
+	public static BiFunction<Integer, Integer, Color> mandelbrotPainter(float maxIterations, int maxX, int maxY) {
 		return (x, y) -> {
 			//x from (0 to maxX) to (-2, 2)		y from (0 to maxY) to (-1, 1)
 			float i = map(0, maxX, -2, 2, x);
 			float j = map(0, maxY, -1, 1, y);
-			float gray = mand(i, j, maxIterations) / maxIterations;
+			float gray = Math.min(mand(i, j, (int) maxIterations) * 4, maxIterations) / maxIterations;
 			return new Color(gray, gray, gray, 1);
 		};
 	}
@@ -55,7 +54,7 @@ final class Complex {
 		return new Complex(re * that.re - im * that.im, re * that.im + im * that.re);
 	}
 
-	public Complex plus(Complex that) {
+	public Complex add(Complex that) {
 		return new Complex(re + that.re, im + that.im);
 	}
 }

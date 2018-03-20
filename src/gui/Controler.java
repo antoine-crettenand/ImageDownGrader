@@ -14,13 +14,12 @@ import java.io.IOException;
 import java.util.NoSuchElementException;
 
 public final class Controler {
-	private ImageView imageView = new ImageView(DEFAULT_IMG);
+	private final ImageView imageView = new ImageView(DEFAULT_IMG);
 	private final static String DEFAULT_IMG = "http://mikecann.co.uk/wp-content/uploads/2009/12/javafx_logo_color_1.jpg";
 
 	public Controler() {}
 
 	public ImageView getImageView() {
-		imageView.setPreserveRatio(true);
 		return imageView;
 	}
 
@@ -36,6 +35,11 @@ public final class Controler {
 			return drawMandelbrotSet;
 		case applyInvert:
 			return applyInvert;
+		case bigger:
+			return bigger;
+		case smaller:
+			return smaller;
+
 		}
 		throw new NoSuchElementException("Such eventType " + eventType + " not found");
 	}
@@ -67,8 +71,8 @@ public final class Controler {
 			e.printStackTrace();
 		}
 		imageView.setImage(img_in);
-		imageView.setFitHeight(img_in.getHeight());
-		imageView.setFitWidth(img_in.getWidth());
+	//	imageView.setFitHeight(img_in.getHeight());
+	//	imageView.setFitWidth(img_in.getWidth());
 	};
 
 	private EventHandler<ActionEvent> saveFile = event -> {
@@ -84,13 +88,6 @@ public final class Controler {
 			}
 		}
 	};
-
-	/*
-	private EventHandler<javafx.scene.input.MouseEvent> drawCircle = event -> {
-		Image image_in = imageView.getImage();
-		Image image_out = Transformer.drawCircle(image_in, int x, int y);
-		imageView.setImage(image_out);
-	};*/
 
 	private EventHandler<ActionEvent> applyGrayscale = event -> {
 		Image image_in = imageView.getImage();
@@ -121,6 +118,14 @@ public final class Controler {
 		Image image_in = imageView.getImage();
 		Image image_out = Transformer.invert(image_in);
 		imageView.setImage(image_out);
+	};
+
+	private EventHandler<ActionEvent> bigger = event -> {
+		Image image_in = imageView.getImage();
+	};
+
+	private EventHandler<ActionEvent> smaller = event -> {
+
 	};
 
 }
